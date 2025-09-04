@@ -2,31 +2,26 @@ function generateElement() {
   return Math.floor(Math.random() * 100) + 1;
 }
 
-
 function generateArray() {
   return Array.from({ length: 5 }, generateElement);
 }
 
-
 function generateContainer() {
-  return document.createElement('div');
+  return document.createElement("div");
 }
 
-
 function fillArrContainer(container, arr) {
-  container.innerHTML = '';
-  arr.forEach(n => {
-    const s = document.createElement('span');
+  container.innerHTML = "";
+  arr.forEach((n) => {
+    const s = document.createElement("span");
     s.textContent = n;
     container.appendChild(s);
   });
 }
 
-
 function isOrdered(a, b) {
   return a <= b;
 }
-
 
 function swapElements(arr, index) {
   if (!isOrdered(arr[index], arr[index + 1])) {
@@ -36,72 +31,68 @@ function swapElements(arr, index) {
   }
 }
 
-
 function highlightCurrentEls(container, index) {
-  const spans = container.querySelectorAll('span');
-  if (spans[index]) spans[index].style.border = '2px dashed red';
-  if (spans[index + 1]) spans[index + 1].style.border = '2px dashed red';
+  const spans = container.querySelectorAll("span");
+  if (spans[index]) spans[index].style.border = "2px dashed red";
+  if (spans[index + 1]) spans[index + 1].style.border = "2px dashed red";
 }
 
+const generateBtn = document.getElementById("generate-btn");
+const sortBtn = document.getElementById("sort-btn");
+const arrayContainer = document.getElementById("array-container");
 
-const generateBtn = document.getElementById('generate-btn');
-const sortBtn = document.getElementById('sort-btn');
-const arrayContainer = document.getElementById('array-container'); 
-
-const startingArrayDiv = document.getElementById('starting-array');
+const startingArrayDiv = document.getElementById("starting-array");
 
 let currentArray = [];
 
-
-generateBtn.addEventListener('click', () => {
+generateBtn.addEventListener("click", () => {
   currentArray = generateArray();
   fillArrContainer(startingArrayDiv, currentArray);
-  highlightCurrentEls(startingArrayDiv, 0);
+  sortBtn.style.display = "block";
 
-
-  Array.from(arrayContainer.children).forEach(child => {
+  Array.from(arrayContainer.children).forEach((child) => {
     if (child !== startingArrayDiv) arrayContainer.removeChild(child);
   });
 });
 
-
-sortBtn.addEventListener('click', () => {
+sortBtn.addEventListener("click", () => {
   if (!currentArray || currentArray.length === 0) return;
 
- 
-  Array.from(arrayContainer.children).forEach(child => {
+  fillArrContainer(startingArrayDiv, currentArray);
+  Array.from(arrayContainer.children).forEach((child) => {
     if (child !== startingArrayDiv) arrayContainer.removeChild(child);
   });
 
- 
-  fillArrContainer(startingArrayDiv, currentArray);
-  highlightCurrentEls(startingArrayDiv, 0);
-
-
   const arr = [...currentArray];
-  const n = arr.length;
+  const n = arr.length - 1;
+  let counter = 0;
+  // The while condition will be executed until there is no more comparisons to being swapped
+  while (true) {
+    for (let pass = 0; pass < n; pass++) {
+      let nextNumber = pass + 1;
 
-  for (let pass = 0; pass < n - 1; pass++) {
-    for (let j = 0; j < n - pass - 1; j++) {
+      const needSwap = !isOrdered(arr[pass], arr[nextNumber]);
 
       const beforeDiv = generateContainer();
       fillArrContainer(beforeDiv, arr);
-      highlightCurrentEls(beforeDiv, j);
+      highlightCurrentEls(beforeDiv, pass);
+
       arrayContainer.appendChild(beforeDiv);
 
-
-      const needSwap = !isOrdered(arr[j], arr[j + 1]);
       if (needSwap) {
-        swapElements(arr, j);
-        
-        const afterDiv = generateContainer();
-        fillArrContainer(afterDiv, arr);
-        highlightCurrentEls(afterDiv, j);
-        arrayContainer.appendChild(afterDiv);
+        swapElements(arr, pass);
+        counter++;
       }
     }
+    //Condition to verify if the array is completely sorted.
+    if (counter === 0) {
+      break;
+    }
+    counter = 0;
   }
 
+  const nodeToDelete = arrayContainer.children[1];
+  arrayContainer.removeChild(nodeToDelete); //Deleting the second child due it is duplicated.
 
   const finalDiv = generateContainer();
   fillArrContainer(finalDiv, arr);
