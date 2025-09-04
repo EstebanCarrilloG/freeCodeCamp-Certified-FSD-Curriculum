@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100dvh;
+  background: rgba(0, 0, 245, 0.938);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+a {
+  text-decoration: none;
+  color: green;
+}
+
+.list-section {
+  border-radius: 1rem;
+  background: white;
+  padding: 2rem 1rem;
+}
+
+.list-section > h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: x-large;
+}
+
+.todo-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.todo-list li {
+  background: rgb(240, 240, 240);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.todo-list li input {
+  margin-right: 0.5rem;
+}
+.todo-list li label {
+  font-weight: 600;
+}
+
+.sub-item li {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.sub-item-link:visited {
+  color: darkgreen;
+}
+.sub-item-link:hover {
+  color: lightgreen;
+}
+.sub-item-link:focus {
+  outline-color: aqua;
+  color: greenyellow;
+  outline: 0.0625rem solid;
+}
+.sub-item-link:active {
+  color: green;
+}
+
+ul,
+li {
+  list-style: none;
+}
