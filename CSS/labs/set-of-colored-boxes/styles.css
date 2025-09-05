@@ -1,0 +1,32 @@
+body {
+  background: #f4f4f4;
+  color: green;
+}
+.color-grid {
+  display: flex;
+  gap: 1rem;
+}
+.color-box {
+  background: black;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 10%;
+}
+
+.color1 {
+  background-color: #f20;
+}
+
+.color2 {
+  background-color: rgb(0, 0, 255);
+}
+.color3 {
+  background-color: green;
+}
+.color4 {
+  background-color: hsl(24, 50%, 40%);
+}
+
+.color5 {
+  background-color: yellow;
+}
